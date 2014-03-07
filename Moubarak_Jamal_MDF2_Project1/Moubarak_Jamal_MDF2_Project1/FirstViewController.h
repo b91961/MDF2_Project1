@@ -14,15 +14,13 @@
     
     NSArray *twitterFeed;
     NSData *image;
+    NSString *postString;
     NSString *userString;
+    NSString *nameString;
+    NSString *detailString;
     NSString *detailPost;
-    NSString *detailFullName;
-    NSString *detailUserName;
-    NSString *detailDetail;
-    NSString *detailFollowed;
-    NSString *detailFollowing;
-    NSString *detailDateTime;
-    UIImage *detailIconPic;
+    NSString *followedString;
+    NSString *followingString;
     NSString *twitterPost;
     NSString *twitterFullName;
     NSString *twitterUserName;

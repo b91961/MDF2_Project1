@@ -133,22 +133,31 @@
     if (cell != nil)
     {
         NSDictionary *tweetDictionary = [twitterFeed objectAtIndex:indexPath.row];
-        NSDictionary *userDictionary = [tweetDictionary objectForKey:@"user"];
+        
+        //postString = [NSString stringWithFormat:@"%@", [tweetDictionary valueForKey:@"text"]];
         
         cell.postText = [tweetDictionary valueForKey:@"text"];
-        image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[userDictionary valueForKey:@"profile_image_url_https"]]];
-        cell.userIconPic = [[UIImage alloc] initWithData:image];
-        cell.fullNameText = [userDictionary valueForKey:@"name"];
-        userString = [NSString stringWithFormat:@"@%@", [userDictionary valueForKey:@"screen_name"]];
-        cell.userNameText = userString;
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        //Wed Dec 01 17:08:03 +0000 2010
-        [df setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-        NSDate *date = [df dateFromString:[tweetDictionary valueForKey:@"created_at"]];
-        [df setDateFormat:@"eee, MMM dd yyyy h:mm a"];
-        dateStr = [df stringFromDate:date];
-        cell.dateTimeText = dateStr;
-
+        
+        NSDictionary *userDictionary = [tweetDictionary objectForKey:@"user"];
+        if (userDictionary != nil)
+        {
+            image = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:[userDictionary valueForKey:@"profile_image_url_https"]]];
+            nameString = [NSString stringWithFormat:@"%@", [userDictionary valueForKey:@"name"]];
+            userString = [NSString stringWithFormat:@"@%@", [userDictionary valueForKey:@"screen_name"]];
+            detailString = [NSString stringWithFormat:@"%@", [userDictionary valueForKey:@"description"]];
+            followedString = [NSString stringWithFormat:@"%@", [userDictionary valueForKey:@"followers_count"]];
+            followingString = [NSString stringWithFormat:@"%@", [userDictionary valueForKey:@"friends_count"]];
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+            NSDate *date = [df dateFromString:[tweetDictionary valueForKey:@"created_at"]];
+            [df setDateFormat:@"eee, MMM dd yyyy h:mm a"];
+            dateStr = [df stringFromDate:date];
+            
+            cell.userIconPic = [[UIImage alloc] initWithData:image];
+            cell.fullNameText = nameString;
+            cell.userNameText = userString;
+            cell.dateTimeText = dateStr;
+        }
         [cell refreshCell];
         
         return cell;
@@ -159,13 +168,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *tweetDictionary = [twitterFeed objectAtIndex:indexPath.row];
-    NSDictionary *userDictionary = [tweetDictionary objectForKey:@"user"];
-    
     detailPost = [tweetDictionary valueForKey:@"text"];
-    detailIconPic = [[UIImage alloc] initWithData:image];
-    detailFullName = [userDictionary valueForKey:@"name"];
-    detailUserName = userString;
-    detailDateTime = dateStr;
     
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
@@ -177,29 +180,17 @@
 
 -(IBAction)onPost:(id)sender
 {
-    SLComposeViewController *newPost = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    if (newPost != nil)
+    SLComposeViewController *slComposeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+    if (slComposeViewController != nil)
     {
-        [newPost setInitialText:@"Posted from Jamal's Twitter app"];
+        [slComposeViewController setInitialText:@"Posted from Jamal's Twitter app"];
         
-        [self presentViewController:newPost animated:true completion:nil];
+        [self presentViewController:slComposeViewController animated:true completion:nil];
     }
 }
 
 -(IBAction)onProfile:(id)sender
 {
-    NSDictionary *tweetDictionary = [twitterFeed objectAtIndex:0];
-    NSDictionary *userDictionary = [tweetDictionary objectForKey:@"user"];
-    
-    detailPost = [tweetDictionary valueForKey:@"text"];
-    detailIconPic = [[UIImage alloc] initWithData:image];
-    detailFullName = [userDictionary valueForKey:@"name"];
-    detailUserName = userString;
-    detailDetail = [userDictionary valueForKey:@"description"];
-    detailFollowed = [userDictionary valueForKey:@"followers_count"];
-    detailFollowing = [userDictionary valueForKey:@"friends_count"];
-    detailDateTime = dateStr;
-    
     [self performSegueWithIdentifier:@"second" sender:self];
 }
 
@@ -209,20 +200,20 @@
     {
         DetailViewController *destination = segue.destinationViewController;
         destination.twitterPost = detailPost;
-        destination.twitterIconPic = detailIconPic;
-        destination.twitterFullName = detailFullName;
-        destination.twitterUserName = detailUserName;
-        destination.twitterDateTime = detailDateTime;
+        destination.twitterIconPic = [[UIImage alloc] initWithData:image];
+        destination.twitterFullName = nameString;
+        destination.twitterUserName = userString;
+        destination.twitterDateTime = dateStr;
     }
     else if ([segue.identifier isEqualToString:@"second"])
     {
         SecondViewController *destination = segue.destinationViewController;
-        destination.twitterIconPic = detailIconPic;
-        destination.twitterFullName = detailFullName;
-        destination.twitterUserName = detailUserName;
-        destination.twitterDetail = detailDetail;
-        destination.twitterFollowed = detailFollowed;
-        destination.twitterFollowing = detailFollowing;
+        destination.twitterIconPic = [[UIImage alloc] initWithData:image];
+        destination.twitterFullName = nameString;
+        destination.twitterUserName = userString;
+        destination.twitterDetail = detailString;
+        destination.twitterFollowed = followedString;
+        destination.twitterFollowing = followingString;
     }
 }
 
