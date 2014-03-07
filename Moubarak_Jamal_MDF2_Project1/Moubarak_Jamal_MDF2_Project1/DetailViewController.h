@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FirstViewController.h"
 
 @interface DetailViewController : UIViewController
 
@@ -18,10 +19,10 @@
     IBOutlet UIImageView *dUserIcon;
 }
 
-@property (nonatomic, strong) NSString *dFullNameText;
-@property (nonatomic, strong) NSString *dUserNameText;
-@property (nonatomic, strong) NSString *dPostText;
-@property (nonatomic, strong) NSString *dDateTimeText;
-@property (nonatomic, strong) UIImage *dUserIconPic;
+@property (nonatomic, strong) NSString *twitterFullName;
+@property (nonatomic, strong) NSString *twitterUserName;
+@property (nonatomic, strong) NSString *twitterPost;
+@property (nonatomic, strong) NSString *twitterDateTime;
+@property (nonatomic, strong) UIImage *twitterIconPic;
 
 @end

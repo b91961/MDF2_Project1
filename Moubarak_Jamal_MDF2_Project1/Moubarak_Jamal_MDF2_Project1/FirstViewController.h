@@ -18,11 +18,26 @@
     NSString *detailPost;
     NSString *detailFullName;
     NSString *detailUserName;
+    NSString *detailDetail;
+    NSString *detailFollowed;
+    NSString *detailFollowing;
     NSString *detailDateTime;
     UIImage *detailIconPic;
+    NSString *twitterPost;
+    NSString *twitterFullName;
+    NSString *twitterUserName;
+    NSString *twitterDetail;
+    NSString *twitterFollowed;
+    NSString *twitterFollowing;
+    NSString *twitterDateTime;
+    UIImage *twitterIconPic;
+    NSString *dateStr;
+    UIAlertView *alert;
+    UIActivityIndicatorView *indicator;
 }
 
 -(IBAction)onRefresh:(id)sender;
 -(IBAction)onProfile:(id)sender;
+-(IBAction)onPost:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "CustomCell.h"
 
 @interface DetailViewController ()
 
@@ -14,7 +15,7 @@
 
 @implementation DetailViewController
 
-@synthesize dFullNameText, dUserNameText, dPostText, dDateTimeText, dUserIconPic;
+@synthesize twitterFullName, twitterUserName, twitterPost, twitterDateTime, twitterIconPic;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,17 +27,14 @@
 
 - (void)viewDidLoad
 {
+    self->dFullName.text = twitterFullName;
+    self->dUserName.text = twitterUserName;
+    self->dPost.text = twitterPost;
+    self->dDateTime.text = twitterDateTime;
+    self->dUserIcon.image = twitterIconPic;
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    dFullName.text = dFullNameText;
-    dUserName.text = dUserNameText;
-    dPost.text = dPostText;
-    dDateTime.text = dDateTimeText;
-    dUserIcon.image = dUserIconPic;
 }
 
 - (void)didReceiveMemoryWarning

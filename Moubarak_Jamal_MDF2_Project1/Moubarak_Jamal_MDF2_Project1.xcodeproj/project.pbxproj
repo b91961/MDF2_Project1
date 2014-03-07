@@ -490,6 +490,7 @@
 				5796F25F18C84222003F2B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5796F26018C84222003F2B79 /* Build configuration list for PBXNativeTarget "Moubarak_Jamal_MDF2_Project1Tests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +499,7 @@
 				5796F26218C84222003F2B79 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

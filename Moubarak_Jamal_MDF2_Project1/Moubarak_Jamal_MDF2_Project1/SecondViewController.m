@@ -14,8 +14,25 @@
 
 @implementation SecondViewController
 
+@synthesize twitterFullName, twitterUserName, twitterDetail, twitterFollowed, twitterFollowing, twitterIconPic;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
+    self->sFullName.text = twitterFullName;
+    self->sUserName.text = twitterUserName;
+    self->sDetail.text = twitterDetail;
+    self->sFollowed.text = twitterFollowed;
+    self->sFollowing.text = twitterFollowing;
+    self->sUserIcon.image = twitterIconPic;
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 }
